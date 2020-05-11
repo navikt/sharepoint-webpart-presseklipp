@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "presseklipp-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/presseklipp/PresseklippWebPart.js",
+          "manifest": "./src/webparts/presseklipp/PresseklippWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "PresseklippWebPartStrings": "lib/webparts/presseklipp/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js"
+  }
+}
