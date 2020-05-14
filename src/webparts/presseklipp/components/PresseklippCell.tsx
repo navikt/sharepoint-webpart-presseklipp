@@ -1,14 +1,13 @@
 import * as React from 'react';
 import * as moment from 'moment';
-import { IPresseklippItem } from "./IPresseklippItem";
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
-import { getCLasses } from './PresseklippClassObject';
-
 import {
   Icon,
   Image,
   ImageFit,
 } from 'office-ui-fabric-react';
+import { IPresseklippItem } from "./Presseklipp";
+import { getClasses } from './PresseklippClassObject';
 
 interface IPresseklippCellProps {
   item: IPresseklippItem;
@@ -50,7 +49,7 @@ export class PresseklippCell extends React.Component<IPresseklippCellProps> {
       'navs',
     ].indexOf(item.text.toLowerCase()) === -1 )).map(item => item.text.toLowerCase());
     
-    const classNames = getCLasses(this.props.themeVariant);
+    const classNames = getClasses(this.props.themeVariant);
 
     return (
       <a

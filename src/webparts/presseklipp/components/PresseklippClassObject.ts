@@ -6,7 +6,7 @@ import {
 } from 'office-ui-fabric-react';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
-interface IPresseklippClassObject {
+export interface IPresseklippClassObject {
     webpartContainer: string;
     webpartHeader: string;
     webpartTitle: string;
@@ -22,11 +22,11 @@ interface IPresseklippClassObject {
     itemIcon: string;
     itemTime: string;
     itemTag: string;
-  }
+}
 
-  const theme: ITheme = getTheme();
+const theme: ITheme = getTheme();
 
-export function getCLasses(themeVariant?: IReadonlyTheme | undefined): IPresseklippClassObject {
+export function getClasses(themeVariant?: IReadonlyTheme | undefined): IPresseklippClassObject {
     const { palette, semanticColors, fonts } = themeVariant ? themeVariant : theme;
     return mergeStyleSets({
         webpartContainer: {

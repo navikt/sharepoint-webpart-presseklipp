@@ -10,7 +10,7 @@ import {
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import * as strings from 'PresseklippWebPartStrings';
 import Presseklipp from './components/Presseklipp';
-import { IPresseklippProps } from './components/IPresseklippProps';
+import { IPresseklippProps } from './components/Presseklipp';
 import { Placeholder } from "@pnp/spfx-controls-react/lib/Placeholder";
 import { ThemeProvider, ThemeChangedEventArgs, IReadonlyTheme } from '@microsoft/sp-component-base';
 

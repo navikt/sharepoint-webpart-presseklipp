@@ -1,28 +1,51 @@
 import * as React from 'react';
-import { IPresseklippProps } from './IPresseklippProps';
-import { IPresseklippItem } from './IPresseklippItem';
-import { PresseklippCell } from './PresseklippCell';
-import { getCLasses } from './PresseklippClassObject';
-import { escape } from '@microsoft/sp-lodash-subset';
-import { PnPClientStorage } from "@pnp/common";
 import * as moment from 'moment';
-import * as strings from 'PresseklippWebPartStrings';
+import { escape } from '@microsoft/sp-lodash-subset';
+import { IReadonlyTheme } from '@microsoft/sp-component-base';
+import { WebPartContext } from "@microsoft/sp-webpart-base";
+import { PnPClientStorage } from "@pnp/common";
 import {
   List,
   Button,
   Panel,
   PanelType,
 } from 'office-ui-fabric-react';
-import {
-  mergeStyleSets,
-  getFocusStyle,
-} from 'office-ui-fabric-react';
-import { IReadonlyTheme } from '@microsoft/sp-component-base';
-import { DetailsColumn } from 'office-ui-fabric-react/lib/components/DetailsList/DetailsColumn';
+import * as strings from 'PresseklippWebPartStrings';
+import { PresseklippCell } from './PresseklippCell';
+import { getClasses } from './PresseklippClassObject';
+
+export interface IPresseklippProps {
+  title: string;
+  description: string;
+  feedUrl: string;
+  itemsCount: number;
+  cacheDuration: number;
+  compressed: boolean;
+  instanceId: string;
+  context: WebPartContext;
+  themeVariant: IReadonlyTheme | undefined;
+}
 
 export interface IPresseklippState {
   items?: IPresseklippItem[];
   isOpen: boolean;
+}
+
+export interface IPresseklippItem {
+  id_site: number;
+  id_article: number;
+  first_source: {sitename: string, url: string};
+  header: {text: string};
+  summary: {text: string};
+  quotes?: {quote: {text: string}};
+  articleimages?: {count: number, articleimage: [{url: string}]};
+  screenshots: [{text: string}];
+  orig_url: string;
+  url_common: string;
+  local_rcf822_time: {text: string};
+  mediatype: {text: string};
+  compressed: boolean;
+  matches: [{color: number, text: string}];
 }
 
 export default class Presseklipp extends React.Component<IPresseklippProps, IPresseklippState> {
@@ -59,7 +82,7 @@ export default class Presseklipp extends React.Component<IPresseklippProps, IPre
   }
 
   public render(): JSX.Element {
-    const classNames = getCLasses(this.props.themeVariant && this.props.themeVariant);
+    const classNames = getClasses(this.props.themeVariant);
 
     return (
       <div className={classNames.webpartContainer}>
