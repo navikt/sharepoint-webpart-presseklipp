@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as moment from 'moment';
 import { IPresseklippItem } from "./IPresseklippItem";
-import { classNames } from './PresseklippClassObject';
+import { IReadonlyTheme } from '@microsoft/sp-component-base';
+import { getCLasses } from './PresseklippClassObject';
+
 import {
   Icon,
   Image,
@@ -11,6 +13,7 @@ import {
 interface IPresseklippCellProps {
   item: IPresseklippItem;
   compressed: boolean;
+  themeVariant?: IReadonlyTheme | undefined;
 }
 
 export class PresseklippCell extends React.Component<IPresseklippCellProps> {
@@ -19,8 +22,9 @@ export class PresseklippCell extends React.Component<IPresseklippCellProps> {
     "RADIO": {icon: "Streaming", label: "radio"},
     "TV": {icon: "TVMonitor", label: "tv"},
     "PRINT": {icon: "News", label: "papir"},
+    "SUMMARY": {icon: "News", label: "oppsummering"},
   };
-  
+
   public render(): JSX.Element {
     const {
       orig_url: link,
@@ -32,14 +36,22 @@ export class PresseklippCell extends React.Component<IPresseklippCellProps> {
       summary: {text: description},
       quotes,
       articleimages,
-      screenshots
+      screenshots,
+      matches,
     } = this.props.item;
     const compressed = this.props.compressed;
     
     const imageUrl = (articleimages
       ? articleimages.articleimage[0].url
       : screenshots && screenshots[0] && screenshots[0].text);
-      
+
+    const tags = matches.filter(item => (item.color > 0 && [
+      'nav',
+      'navs',
+    ].indexOf(item.text.toLowerCase()) === -1 )).map(item => item.text.toLowerCase());
+    
+    const classNames = getCLasses(this.props.themeVariant);
+
     return (
       <a
       href={link}
@@ -49,16 +61,17 @@ export class PresseklippCell extends React.Component<IPresseklippCellProps> {
       >
         {!compressed && ( imageUrl
           ? <Image className={classNames.itemImage} src={imageUrl} width={50} height={50} imageFit={ImageFit.cover} />
-          : <Icon iconName={this._mediaTypes[mediatype].icon} className={classNames.itemIcon} />)
+          : <Icon iconName={this._mediaTypes[mediatype] && this._mediaTypes[mediatype].icon} className={classNames.itemIcon} />)
         }
         <div className={classNames.itemContent}>
           <div className={classNames.itemName}>{title}</div>
           <div className={classNames.itemMeta}>
-            {sitename} ({mediatype == 'WEB' ? `${url_common}` : `${this._mediaTypes[mediatype].label}`})
+            {sitename} ({mediatype == 'WEB' ? `${url_common}` : `${this._mediaTypes[mediatype] && this._mediaTypes[mediatype].label}`})
             {'  //  '}
             <time className={classNames.itemTime} dateTime={moment(pubDate).format()}>{moment(pubDate).format("D.M.YYYY [kl.] HH:mm")}</time>
           </div>
           {!compressed && <div className={classNames.itemDescription}>{description ? description : quotes && quotes.quote && quotes.quote.text && `Sitat: «${quotes.quote.text}»`}</div>}
+          {!compressed && tags.length > 0 && <div className={classNames.itemMeta}>Stikkord: {tags.map(tag => <span className={classNames.itemTag}>{tag}</span>)}</div>}
         </div>
         <Icon className={classNames.linkIcon} iconName={'Link'} />
       </a>

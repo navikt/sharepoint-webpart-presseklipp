@@ -10,4 +10,5 @@ export interface IPresseklippItem {
   local_rcf822_time: {text: string};
   mediatype: {text: string};
   compressed: boolean;
+  matches: [{color: number, text: string}];
 }

@@ -4,13 +4,15 @@ import { Version } from '@microsoft/sp-core-library';
 import {
   IPropertyPaneConfiguration,
   PropertyPaneTextField,
-  PropertyPaneSlider
+  PropertyPaneSlider,
+  PropertyPaneToggle
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import * as strings from 'PresseklippWebPartStrings';
 import Presseklipp from './components/Presseklipp';
 import { IPresseklippProps } from './components/IPresseklippProps';
 import { Placeholder } from "@pnp/spfx-controls-react/lib/Placeholder";
+import { ThemeProvider, ThemeChangedEventArgs, IReadonlyTheme } from '@microsoft/sp-component-base';
 
 export interface IPresseklippWebPartProps {
   title: string;
@@ -20,9 +22,31 @@ export interface IPresseklippWebPartProps {
   compressed: boolean;
   cacheDuration: number;
   seeAllUrl: string;
+  themeVariant: IReadonlyTheme | undefined;
 }
 
 export default class PresseklippWebPart extends BaseClientSideWebPart <IPresseklippWebPartProps> {
+
+  private _themeProvider: ThemeProvider;
+  private _themeVariant: IReadonlyTheme | undefined;
+    
+  protected onInit(): Promise<void> {
+      // Consume the new ThemeProvider service
+      this._themeProvider = this.context.serviceScope.consume(ThemeProvider.serviceKey);
+  
+      // If it exists, get the theme variant
+      this._themeVariant = this._themeProvider.tryGetTheme();
+  
+      // Register a handler to be notified if the theme variant changes
+      this._themeProvider.themeChangedEvent.add(this, this._handleThemeChangedEvent);
+  
+      return super.onInit();
+  }
+
+  private _handleThemeChangedEvent(args: ThemeChangedEventArgs): void {
+    this._themeVariant = args.theme;
+    this.render();
+  }
 
   public render(): void {
     const element: React.ReactElement<IPresseklippProps> = React.createElement(
@@ -32,9 +56,11 @@ export default class PresseklippWebPart extends BaseClientSideWebPart <IPressekl
         description: this.properties.description,
         feedUrl: this.properties.feedUrl,
         itemsCount: this.properties.itemsCount,
+        compressed: this.properties.compressed,
         cacheDuration: this.properties.cacheDuration,
         instanceId: this.instanceId,
         context: this.context,
+        themeVariant: this._themeVariant,
       }
     );
 
@@ -78,6 +104,9 @@ export default class PresseklippWebPart extends BaseClientSideWebPart <IPressekl
                 PropertyPaneTextField('feedUrl', {
                   label: strings.FeedUrlFieldLabel,
                 }),
+                PropertyPaneToggle('compressed', {
+                  label: strings.CompressedFieldLabel,
+                }),
                 PropertyPaneSlider('itemsCount', {
                   label: strings.ItemsCountFieldLabel,
                   min: 1,
@@ -85,8 +114,8 @@ export default class PresseklippWebPart extends BaseClientSideWebPart <IPressekl
                 }),
                 PropertyPaneSlider('cacheDuration', {
                   label: strings.CacheExpirationTimeFieldLabel,
-                  min: 0,
-                  max: 1440,
+                  min: 1,
+                  max: 240,
                 }),
               ]
             }

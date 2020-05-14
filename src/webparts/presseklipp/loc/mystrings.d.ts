@@ -5,6 +5,7 @@ declare interface IPresseklippWebPartStrings {
   WebPartTitleFieldLabel: string;
   DescriptionFieldLabel: string;
   FeedUrlFieldLabel: string;
+  CompressedFieldLabel: string;
   ItemsCountFieldLabel: string;
   CacheExpirationTimeFieldLabel: string;
   View_EmptyPlaceholder_Label: string;

@@ -4,6 +4,8 @@
   "alias": "PresseklippWebPart",
   "componentType": "WebPart",
 
+  "supportsThemeVariants": true,
+
   // The "*" signifies that the version should be taken from the package.json
   "version": "*",
   "manifestVersion": 2,
@@ -25,6 +27,7 @@
       "description": "",
       "feedUrl": "",
       "itemsCount": 3,
+      "compressed": true,
       "cacheDuration": 5
     }
   }]
