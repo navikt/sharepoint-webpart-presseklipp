@@ -70,7 +70,7 @@ export class PresseklippCell extends React.Component<IPresseklippCellProps> {
             <time className={classNames.itemTime} dateTime={moment(pubDate).format()}>{moment(pubDate).format("D.M.YYYY [kl.] HH:mm")}</time>
           </div>
           {!compressed && <div className={classNames.itemDescription}>{description ? description : quotes && quotes.quote && quotes.quote.text && `Sitat: «${quotes.quote.text}»`}</div>}
-          {!compressed && tags.length > 0 && <div className={classNames.itemMeta}>Stikkord: {tags.map(tag => <span className={classNames.itemTag}>{tag}</span>)}</div>}
+          {!compressed && tags.length > 0 && <div className={classNames.itemMeta}>Stikkord: <ul className={classNames.itemTags}>{tags.map(tag => <li className={classNames.itemTag} key={tag}>{tag}</li>)}</ul></div>}
         </div>
         <Icon className={classNames.linkIcon} iconName={'Link'} />
       </a>

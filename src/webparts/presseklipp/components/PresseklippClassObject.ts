@@ -21,6 +21,7 @@ export interface IPresseklippClassObject {
     linkIcon: string;
     itemIcon: string;
     itemTime: string;
+    itemTags: string;
     itemTag: string;
 }
 
@@ -119,13 +120,19 @@ export function getClasses(themeVariant?: IReadonlyTheme | undefined): IPressek
             fontSize: fonts.large.fontSize,
             flexShrink: 0,
         },
+        itemTags: {
+            display: 'inline-block',
+            listStyleType: 'none',
+            margin: 0,
+            padding: 0,
+        },
         itemTag: {
+            display: 'inline-block',
             background: semanticColors.disabledBackground,
             color: semanticColors.listText,
             padding: '0px 5px',
             marginRight: 5,
             borderRadius: 2,
-            display: 'inline-block',
         },
     });
 }
