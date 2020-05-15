@@ -6,11 +6,11 @@ import {
   Image,
   ImageFit,
 } from 'office-ui-fabric-react';
-import { IPresseklippItem } from "./Presseklipp";
+import { IMbrainItem } from "./Presseklipp";
 import { getClasses } from './PresseklippClassObject';
 
 interface IPresseklippCellProps {
-  item: IPresseklippItem;
+  item: IMbrainItem;
   compressed: boolean;
   themeVariant?: IReadonlyTheme | undefined;
 }

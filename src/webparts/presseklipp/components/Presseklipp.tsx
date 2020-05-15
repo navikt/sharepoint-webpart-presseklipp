@@ -27,11 +27,11 @@ export interface IPresseklippProps {
 }
 
 export interface IPresseklippState {
-  items?: IPresseklippItem[];
+  items?: IMbrainItem[];
   isOpen: boolean;
 }
 
-export interface IPresseklippItem {
+export interface IMbrainItem {
   id_site: number;
   id_article: number;
   first_source: {sitename: string, url: string};
