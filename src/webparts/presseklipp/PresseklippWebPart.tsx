@@ -84,6 +84,21 @@ export default class PresseklippWebPart extends BaseClientSideWebPart <IPressekl
     this.context.propertyPane.open();
   }
 
+  private async _validateFeedUrl(value: string): Promise<String> {
+    if (value === null || value.trim().length === 0) return 'Du må oppgi feed-URL';
+    if (value.substring(0,34) !== 'https://m360.opoint.com/api/feeds/') return 'Dette er ikke en gyldig Mbrain-url';
+    try {
+      const response = await fetch(value);
+      if (!response.ok) return `Denne URL-en fungerte ikke. Feil: ${response.status} ${response.statusText}`;
+      const {searchresult: {document: items}} = await response.json();
+      if (!items[0]) return 'Feil: Fant ingen artikler i denne feeden.';
+      if (items[0].matches === undefined) return 'Feil: Du må huke av for «Inkluder treffsetninger» i feed-innstillingene i Mbrain.';
+      return '';
+    } catch(error) {
+      return error.message;
+    }
+  }
+
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [
@@ -103,6 +118,7 @@ export default class PresseklippWebPart extends BaseClientSideWebPart <IPressekl
                 }),
                 PropertyPaneTextField('feedUrl', {
                   label: strings.FeedUrlFieldLabel,
+                  onGetErrorMessage: this._validateFeedUrl.bind(this)
                 }),
                 PropertyPaneToggle('compressed', {
                   label: strings.CompressedFieldLabel,

@@ -44,10 +44,13 @@ export class PresseklippCell extends React.Component<IPresseklippCellProps> {
       ? articleimages.articleimage[0].url
       : screenshots && screenshots[0] && screenshots[0].text);
 
-    const tags = matches.filter(item => (item.color > 0 && [
-      'nav',
-      'navs',
-    ].indexOf(item.text.toLowerCase()) === -1 )).map(item => item.text.toLowerCase());
+    const tags = (matches 
+      ? matches.filter(item => (item.color > 0 && [
+          'nav',
+          'navs',
+        ].indexOf(item.text.toLowerCase()) === -1 )).map(item => item.text.toLowerCase())
+      : []
+    );
     
     const classNames = getClasses(this.props.themeVariant);
 
