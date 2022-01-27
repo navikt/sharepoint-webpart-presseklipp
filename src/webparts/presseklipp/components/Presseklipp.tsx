@@ -6,10 +6,10 @@ import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { PnPClientStorage } from "@pnp/common";
 import {
   List,
-  Button,
+  DefaultButton,
   Panel,
   PanelType,
-} from 'office-ui-fabric-react';
+} from '@fluentui/react';
 import * as strings from 'PresseklippWebPartStrings';
 import { PresseklippCell } from './PresseklippCell';
 import { getClasses } from './PresseklippClassObject';
@@ -52,7 +52,7 @@ export default class Presseklipp extends React.Component<IPresseklippProps, IPre
 
   constructor(props: IPresseklippProps) {
     super(props);
-    this.state = { 
+    this.state = {
       items: [],
       isOpen: false,
     };
@@ -81,7 +81,7 @@ export default class Presseklipp extends React.Component<IPresseklippProps, IPre
     }
   }
 
-  public render(): JSX.Element {
+  public render(): React.ReactElement<IPresseklippProps> {
     const classNames = getClasses(this.props.themeVariant);
 
     return (
@@ -98,7 +98,7 @@ export default class Presseklipp extends React.Component<IPresseklippProps, IPre
               themeVariant={this.props.themeVariant}
             />
           )} renderCount={this.props.itemsCount} />
-          <Button text={strings.OpenButtonLabel} onClick={() => this.setState({isOpen: true})} className={classNames.webpartButton} />
+          <DefaultButton text={strings.OpenButtonLabel} onClick={() => this.setState({isOpen: true})} className={classNames.webpartButton} />
           <Panel
             isLightDismiss
             headerText={this.props.title}

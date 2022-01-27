@@ -5,8 +5,15 @@
     "id": "8a25670e-d838-4985-8168-305276985703",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
-    "skipFeatureDeployment": true,
-    "isDomainIsolated": false
+    "skipFeatureDeployment": false,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.13.0"
+    }
   },
   "paths": {
     "zippedPackage": "solution/sp-webpart-presseklipp.sppkg"

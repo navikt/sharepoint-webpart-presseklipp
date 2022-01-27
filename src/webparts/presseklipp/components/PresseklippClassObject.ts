@@ -3,7 +3,7 @@ import {
     mergeStyleSets,
     getTheme,
     getFocusStyle,
-} from 'office-ui-fabric-react';
+} from '@fluentui/react';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 export interface IPresseklippClassObject {
@@ -27,7 +27,7 @@ export interface IPresseklippClassObject {
 
 const theme: ITheme = getTheme();
 
-export function getClasses(themeVariant?: IReadonlyTheme | undefined): IPresseklippClassObject {
+export function getClasses(themeVariant?: IReadonlyTheme | undefined): IPresseklippClassObject {
     const { palette, semanticColors, fonts } = themeVariant ? themeVariant : theme;
     return mergeStyleSets({
         webpartContainer: {
@@ -66,7 +66,7 @@ export function getClasses(themeVariant?: IReadonlyTheme | undefined): IPressek
             textDecoration: 'none',
             color: semanticColors.listText,
             selectors: {
-                '&:hover': { 
+                '&:hover': {
                     // background: palette.neutralLight,
                 },
                 '&:hover .item-name': {

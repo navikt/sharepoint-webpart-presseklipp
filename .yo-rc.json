@@ -1,8 +1,9 @@
 {
   "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
     "isCreatingSolution": true,
     "environment": "spo",
-    "version": "1.10.0",
+    "version": "1.13.1",
     "libraryName": "sp-webpart-presseklipp",
     "libraryId": "8a25670e-d838-4985-8168-305276985703",
     "packageManager": "npm",

@@ -9,8 +9,5 @@
     "**/lib-amd": true,
     "src/**/*.scss.ts": true
   },
-  "files.associations": {
-    "**/*.json": "jsonc"
-  },
   "typescript.tsdk": ".\\node_modules\\typescript\\lib"
 }

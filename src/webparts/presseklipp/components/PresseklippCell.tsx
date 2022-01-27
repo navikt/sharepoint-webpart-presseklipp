@@ -5,7 +5,7 @@ import {
   Icon,
   Image,
   ImageFit,
-} from 'office-ui-fabric-react';
+} from '@fluentui/react';
 import { IMbrainItem } from "./Presseklipp";
 import { getClasses } from './PresseklippClassObject';
 
@@ -24,7 +24,7 @@ export class PresseklippCell extends React.Component<IPresseklippCellProps> {
     "SUMMARY": {icon: "News", label: "oppsummering"},
   };
 
-  public render(): JSX.Element {
+  public render(): React.ReactElement<IPresseklippCellProps> {
     const {
       orig_url: link,
       mediatype: {text: mediatype},
@@ -39,19 +39,19 @@ export class PresseklippCell extends React.Component<IPresseklippCellProps> {
       matches,
     } = this.props.item;
     const compressed = this.props.compressed;
-    
+
     const imageUrl = (articleimages
       ? articleimages.articleimage[0].url
       : screenshots && screenshots[0] && screenshots[0].text);
 
-    const tags = (matches 
+    const tags = (matches
       ? matches.filter(item => (item.color > 0 && [
           'nav',
           'navs',
         ].indexOf(item.text.toLowerCase()) === -1 )).map(item => item.text.toLowerCase())
       : []
     );
-    
+
     const classNames = getClasses(this.props.themeVariant);
 
     return (
