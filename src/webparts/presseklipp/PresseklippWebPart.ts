@@ -77,6 +77,10 @@ export default class PresseklippWebPart extends BaseClientSideWebPart<IPressekli
 
   private async _validateFeedUrl(value: string): Promise<String> {
     if (value === null || value.trim().length === 0) return 'Du må oppgi feed-URL';
+    if (
+      value.substring(0,34) !== 'https://m360.opoint.com/api/feeds/'
+      && value.substring(0,29) !== 'https://api.opoint.com/feeds/'
+    ) return 'Dette er ikke en gyldig Mbrain-url';
     try {
       const response = await fetch(value);
       if (!response.ok) return `Denne URL-en fungerte ikke. Feil: ${response.status} ${response.statusText}`;
