@@ -24,8 +24,8 @@ Web part that displays a news feed from OPoint/Infomedia.
 - in the command-line run:
   - **npm install**
   - **gulp serve**
-– Go to https://m360.opoint.com and create a **feed**. Make sure it is in JSON format.
-– Copy the feed URL to the web part settings in the workbench.
+- Go to https://m360.opoint.com and create a **feed**. Make sure it is in JSON format.
+- Copy the feed URL to the web part settings in the workbench.
 
 ## References
 
